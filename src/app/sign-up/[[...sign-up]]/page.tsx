@@ -1,6 +1,7 @@
 import { SignUp } from "@clerk/nextjs";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "My Chatbot - sign up",
 };
 

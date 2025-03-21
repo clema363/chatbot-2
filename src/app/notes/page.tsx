@@ -1,6 +1,6 @@
-import { title } from "process";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "My Chatbot - Notes",
 };
 
