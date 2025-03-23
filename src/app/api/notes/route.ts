@@ -1,4 +1,5 @@
 import prisma from "@/lib/db/prisma";
+import { ragChat } from "@/lib/rag-chat";
 import {
   createNoteSchema,
   deleteNoteSchema,
@@ -31,6 +32,12 @@ export async function POST(req: Request) {
         content,
         userId,
       },
+    });
+
+    await ragChat.context.add({
+      id: note.id,
+      type: "text",
+      data: `Titre: ${title}\n\nContenu: ${content}`,
     });
 
     return Response.json({ note }, { status: 201 });
@@ -75,6 +82,11 @@ export async function PUT(req: Request) {
       },
     });
 
+    await ragChat.context.add({
+      type: "text",
+      data: `Titre: ${title}\n\nContenu: ${content}`,
+    });
+
     return Response.json({ updatedNote }, { status: 200 });
   } catch (error) {
     console.error(error);
@@ -110,6 +122,11 @@ export async function DELETE(req: Request) {
     }
 
     await prisma.note.delete({ where: { id } });
+
+    // Delete in the context in the vector database
+    await ragChat.context.delete({
+      id: note.id,
+    });
 
     return Response.json({ message: "Note deleted" }, { status: 200 });
   } catch (error) {
