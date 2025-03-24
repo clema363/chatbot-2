@@ -86,6 +86,9 @@ export async function PUT(req: Request) {
       type: "text",
       data: `Titre: ${title}\n\nContenu: ${content}`,
     });
+    await ragChat.context.delete({
+      id: note.id,
+    });
 
     return Response.json({ updatedNote }, { status: 200 });
   } catch (error) {
