@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# README - Application de Notes avec Chatbot IA
 
-## Getting Started
+## Description
+Cette application est une plateforme de prise de notes intelligente intégrant un chatbot IA capable de répondre à des questions sur vos notes. Elle utilise Next.js, Clerk pour l'authentification, et Upstash RAG pour les fonctionnalités de chatbot.
 
-First, run the development server:
+## Prérequis
+- Node.js (v16 ou supérieur)
+- npm ou yarn
+- Compte Clerk (pour l'authentification)
+- Compte Upstash (pour RAG Chat)
+- Base de données PostgreSQL (j'utilise neon pour ma part)
 
-```bash
+## Installation
+
+1. Clonez le dépôt:
+
+git clone https://github.com/votre-nom/nextjs-ai-note-app.git
+cd nextjs-ai-note-app
+
+
+2. Installez les dépendances:
+
+npm install
+
+
+3. Configurez les variables d'environnement:
+Créez un fichier .env à la racine du projet avec les variables suivantes:
+
+# Clerk (Authentification)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=votre_clé_publique_clerk
+CLERK_SECRET_KEY=votre_clé_secrète_clerk
+
+# Upstash (RAG Chat)
+UPSTASH_VECTOR_REST_URL=votre_url_upstash
+UPSTASH_VECTOR_REST_TOKEN=votre_token_upstash
+QSTASH_TOKEN
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/notes
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/notes
+
+# Base de données
+DATABASE_URL=votre_url_de_base_de_données_postgresql
+
+
+4. Initialisez la base de données:
+
+npx prisma db push
+
+
+## Démarrage
+
+Pour lancer l'application en mode développement:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+L'application sera accessible à l'adresse [http://localhost:3000](http://localhost:3000).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Services tiers utilisés
 
-## Learn More
+### Clerk
+Service d'authentification et de gestion des utilisateurs.
+- Configuration: Créez un compte sur [clerk.dev](https://clerk.dev)
+- Créez une application et récupérez vos clés API
+- Intégration déjà configurée dans le projet
 
-To learn more about Next.js, take a look at the following resources:
+### Upstash RAG Chat
+Service pour la génération de réponses basées sur le contexte.
+- Configuration: Créez un compte sur [upstash.com](https://upstash.com)
+- Créez un index dans vector et copier coller le .env il contient votre UPSTASH_VECTOR_REST_URL et UPSTASH_VECTOR_REST_TOKEN
+- Allez dans QStash et copier votre QSTASH_TOKEN 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Prisma
+ORM pour la gestion de la base de données.
+- Déjà configuré dans le projet
+- Utilisez npx prisma studio pour visualiser votre base de données
+  ou aller directement consulter votre base de donnée avec neon par exemple
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Tailwind CSS & shadcn/ui
+Framework CSS et composants UI.
+- Déjà configurés dans le projet
+- Les composants shadcn peuvent être ajoutés avec npx shadcn-ui@latest add [nom-du-composant]
 
-## Deploy on Vercel
+## Fonctionnalités principales
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Authentification utilisateur
+- Création, modification et suppression de notes
+- Chatbot IA qui peut répondre à des questions sur vos notes
+- Interface responsive et thème clair/sombre
