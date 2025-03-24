@@ -17,7 +17,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
     //handleChange,
     handleSubmit,
     setMessages,
-  } = useChat();
+  } = useChat({ api: "/api/chat-stream" });
 
   return (
     <div
@@ -30,7 +30,7 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
         <XCircle size={30} />
       </button>
       <div className="flex h-[600px] flex-col rounded border bg-background shadow-xl">
-        <div className="h-full">Messages</div>
+        <div className="h-full">{JSON.stringify(messages)}</div>
         <form onSubmit={handleSubmit} className="m-3 flex gap-1">
           <Input
             value={input}
