@@ -3,6 +3,7 @@ import { useChat } from "@ai-sdk/react";
 import { XCircle } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { Messages } from "./AIMessages";
 
 interface AIChatBoxProps {
   open: boolean;
@@ -30,15 +31,23 @@ export default function AIChatBox({ open, onClose }: AIChatBoxProps) {
         <XCircle size={30} />
       </button>
       <div className="flex h-[600px] flex-col rounded border bg-background shadow-xl">
-        <div className="h-full">{JSON.stringify(messages)}</div>
-        <form onSubmit={handleSubmit} className="m-3 flex gap-1">
-          <Input
-            value={input}
-            onChange={handleInputChange}
-            placeholder="Enter your message"
-          />
-          <Button type="submit">Send</Button>
-        </form>
+        <div className="flex h-full flex-col">
+          <div className="flex-1 overflow-hidden">
+            <Messages messages={messages} />
+          </div>
+          <form
+            onSubmit={handleSubmit}
+            className="sticky bottom-0 m-3 flex gap-1"
+          >
+            <Input
+              value={input}
+              onChange={handleInputChange}
+              placeholder="Entrez votre message"
+              className="flex-1"
+            />
+            <Button type="submit">Envoyer</Button>
+          </form>
+        </div>
       </div>
     </div>
   );
